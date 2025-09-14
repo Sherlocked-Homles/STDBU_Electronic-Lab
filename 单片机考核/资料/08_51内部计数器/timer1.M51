@@ -1,0 +1,177 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        04/21/2017  23:44:02  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE main.obj TO timer1 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  main.obj (MAIN)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  timer1 (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0001H     UNIT         _DATA_GROUP_
+            IDATA   0009H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     005BH     UNIT         ?PR?_DISPLAY?MAIN
+            CODE    005EH     0031H     UNIT         ?PR?MAIN?MAIN
+            CODE    008FH     0027H     UNIT         ?PR?_DELAY?MAIN
+            CODE    00B6H     0019H     UNIT         ?CO?MAIN
+            CODE    00CFH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   timer1 (MAIN)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN                  0008H    0001H
+  +--> ?PR?_DISPLAY?MAIN
+
+?PR?_DISPLAY?MAIN              -----    -----
+  +--> ?CO?MAIN
+  +--> ?PR?_DELAY?MAIN
+
+
+
+SYMBOL TABLE OF MODULE:  timer1 (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+BL51 BANKED LINKER/LOCATER V6.05                                                      04/21/2017  23:44:02  PAGE 2
+
+
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:0090H.0       PUBLIC        LED1
+  D:00A8H         PUBLIC        IE
+  C:0098H         PUBLIC        _delay
+  D:00B8H         PUBLIC        IP
+  C:005EH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  B:0088H.5       PUBLIC        TF0
+  D:008CH         PUBLIC        TH0
+  D:008DH         PUBLIC        TH1
+  D:008AH         PUBLIC        TL0
+  D:008BH         PUBLIC        TL1
+  C:00B6H         PUBLIC        leddata
+  B:0088H.4       PUBLIC        TR0
+  B:0088H.6       PUBLIC        TR1
+  B:00A0H.6       PUBLIC        du
+  B:00A0H.7       PUBLIC        we
+  D:00C8H         PUBLIC        T2CON
+  C:0003H         PUBLIC        _display
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          L?0016
+  -------         ENDPROC       L?0016
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        z
+  -------         DO            
+  D:0006H         SYMBOL        x
+  D:0004H         SYMBOL        y
+  -------         ENDDO         
+  C:0098H         LINE#         46
+  C:0098H         LINE#         47
+  C:0098H         LINE#         49
+  C:00A1H         LINE#         50
+  C:00B5H         LINE#         51
+  -------         ENDPROC       _DELAY
+  -------         PROC          _DISPLAY
+  D:0007H         SYMBOL        i
+  -------         DO            
+  D:0006H         SYMBOL        bai
+  D:0003H         SYMBOL        shi
+  D:0002H         SYMBOL        ge
+  -------         ENDDO         
+  C:0003H         LINE#         53
+  C:0003H         LINE#         54
+  C:0003H         LINE#         56
+  C:0009H         LINE#         57
+  C:0015H         LINE#         58
+  C:001CH         LINE#         60
+  C:001FH         LINE#         61
+  C:0021H         LINE#         62
+  C:0024H         LINE#         63
+  C:0026H         LINE#         65
+  C:0028H         LINE#         66
+BL51 BANKED LINKER/LOCATER V6.05                                                      04/21/2017  23:44:02  PAGE 3
+
+
+  C:002EH         LINE#         67
+  C:002EH         LINE#         68
+  C:0031H         LINE#         70
+  C:0034H         LINE#         71
+  C:0036H         LINE#         72
+  C:0039H         LINE#         73
+  C:003BH         LINE#         75
+  C:003DH         LINE#         76
+  C:0040H         LINE#         77
+  C:0040H         LINE#         78
+  C:0043H         LINE#         80
+  C:0046H         LINE#         81
+  C:0048H         LINE#         82
+  C:004BH         LINE#         83
+  C:004DH         LINE#         85
+  C:004FH         LINE#         86
+  C:0055H         LINE#         87
+  C:0057H         LINE#         88
+  -------         ENDPROC       _DISPLAY
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        a
+  -------         ENDDO         
+  C:005EH         LINE#         91
+  C:005EH         LINE#         92
+  C:005EH         LINE#         94
+  C:0060H         LINE#         95
+  C:0062H         LINE#         96
+  C:0065H         LINE#         97
+  C:0068H         LINE#         98
+  C:006BH         LINE#         99
+  C:006EH         LINE#         100
+  C:0071H         LINE#         101
+  C:0071H         LINE#         102
+  C:0071H         LINE#         103
+  C:0074H         LINE#         104
+  C:0074H         LINE#         105
+  C:0077H         LINE#         106
+  C:007AH         LINE#         107
+  C:007CH         LINE#         108
+  C:007EH         LINE#         109
+  C:007EH         LINE#         110
+  C:0083H         LINE#         111
+  C:0083H         LINE#         112
+  C:0086H         LINE#         113
+  C:0088H         LINE#         114
+  C:0088H         LINE#         115
+  C:008DH         LINE#         116
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+Program Size: data=10.0 xdata=0 code=219
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

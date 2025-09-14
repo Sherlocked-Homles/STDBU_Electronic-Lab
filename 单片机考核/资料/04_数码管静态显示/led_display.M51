@@ -1,0 +1,86 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        04/21/2017  23:09:58  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE led_display.obj TO led_display RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  led_display.obj (LED_DISPLAY)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  led_display (LED_DISPLAY)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0019H     UNIT         ?CO?LED_DISPLAY
+            CODE    001CH     0014H     UNIT         ?PR?MAIN?LED_DISPLAY
+            CODE    0030H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   led_display (LED_DISPLAY)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?LED_DISPLAY
+
+?PR?MAIN?LED_DISPLAY
+  +--> ?CO?LED_DISPLAY
+
+
+
+SYMBOL TABLE OF MODULE:  led_display (LED_DISPLAY)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        LED_DISPLAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:001CH         PUBLIC        main
+BL51 BANKED LINKER/LOCATER V6.05                                                      04/21/2017  23:09:58  PAGE 2
+
+
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:0003H         PUBLIC        leddata
+  B:00A0H.6       PUBLIC        du
+  B:00A0H.7       PUBLIC        we
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  C:001CH         LINE#         41
+  C:001CH         LINE#         42
+  C:001CH         LINE#         43
+  C:001EH         LINE#         44
+  C:0025H         LINE#         45
+  C:0027H         LINE#         48
+  C:0029H         LINE#         49
+  C:002CH         LINE#         50
+  C:002EH         LINE#         53
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        LED_DISPLAY
+
+Program Size: data=9.0 xdata=0 code=60
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

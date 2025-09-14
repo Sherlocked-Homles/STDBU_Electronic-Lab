@@ -1,0 +1,140 @@
+C51 COMPILER V8.08   MAIN                                                                  04/21/2017 23:31:54 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*定时器1，定时模式 工作模式1 16位计数器，
+   2          定时20秒后使能蜂鸣器*/
+   3          #include <reg52.h> //51头文件
+   4          #define uchar unsigned char//宏定义
+   5          #define uint  unsigned int//宏定义
+   6          sbit we = P2^7;//位定义数码管位选锁存器接口
+   7          sbit du = P2^6;//位定义数码管段选锁存器接口
+   8          sbit beep = P2^3;//蜂鸣器接口
+   9          
+  10          //数码管段选表
+  11          uchar code leddata[]={ 
+  12           
+  13                          0x3F,  //"0"
+  14                          0x06,  //"1"
+  15                          0x5B,  //"2"
+  16                          0x4F,  //"3"
+  17                          0x66,  //"4"
+  18                          0x6D,  //"5"
+  19                          0x7D,  //"6"
+  20                          0x07,  //"7"
+  21                          0x7F,  //"8"
+  22                          0x6F,  //"9"
+  23                          0x77,  //"A"
+  24                          0x7C,  //"B"
+  25                          0x39,  //"C"
+  26                          0x5E,  //"D"
+  27                          0x79,  //"E"
+  28                          0x71,  //"F"
+  29                          0x76,  //"H"
+  30                          0x38,  //"L"
+  31                          0x37,  //"n"
+  32                          0x3E,  //"u"
+  33                          0x73,  //"P"
+  34                          0x5C,  //"o"
+  35                          0x40,  //"-"
+  36                          0x00,  //熄灭
+  37                          0x00  //自定义
+  38           
+  39                                   };
+  40          
+  41          //毫秒级延时函数
+  42          void delay(uint z)
+  43          {
+  44   1              uint x,y;
+  45   1              for(x = z; x > 0; x--)
+  46   1                      for(y = 114; y > 0 ; y--);
+  47   1      }
+  48          
+  49          //两位数码管动态显示函数
+  50          void display(uchar i)
+  51          {
+  52   1              uchar shi, ge;
+  53   1              shi = i / 10;//求模  i除以10取商的整数部分
+  54   1              ge  = i % 10;//求余  i除以10取余数部分
+  55   1      
+C51 COMPILER V8.08   MAIN                                                                  04/21/2017 23:31:54 PAGE 2   
+
+  56   1              P0 = 0xff; //清除断码
+  57   1              we = 1;//打开位选
+  58   1              P0 = 0xfe;//1111 1110 只选通第一位数码管
+  59   1              we = 0; //关闭位选
+  60   1      
+  61   1              du = 1; //打开段选
+  62   1              P0 = leddata[shi];
+  63   1              du = 0; //关闭段选
+  64   1              delay(5);//延时5毫秒
+  65   1              
+  66   1              P0 = 0xff;//清除断码
+  67   1              we = 1; //打开位选
+  68   1              P0 = 0xfd;//1111 1101  只选通第二位数码管
+  69   1              we = 0; //关闭位选
+  70   1              
+  71   1              du = 1;//打开段选
+  72   1              P0 = leddata[ge]; 
+  73   1              du = 0; //关闭段选
+  74   1              delay(5);//延时5毫秒    
+  75   1      }
+  76          
+  77          void main()
+  78          {
+  79   1                      uchar a; //50次数计数
+  80   1                      uchar b;//秒计数
+  81   1                      TR1 = 1;//启动T1
+  82   1                      TMOD = 0x10;//T1为定时器，工作模式1 16位计数器
+  83   1                      TH1 = 0x4b;
+  84   1                      TL1 = 0xfc;//0x4bfc     定时50ms                                
+  85   1                      while(1)
+  86   1                      {
+  87   2                              if(TF1 == 1)//判断T1是否溢出
+  88   2                              {
+  89   3                                      TH1 = 0x4b;
+  90   3                                      TL1 = 0xfc;//0x4bfc     定时50ms
+  91   3                                      TF1 = 0;//清零便于下次判断
+  92   3                                      a++;//50毫秒计数加1     
+  93   3                              }
+  94   2                              if(a == 20)//判断是否到1秒
+  95   2                              {
+  96   3                                      a = 0;//清零便于下次记录50ms的次数
+  97   3                                      b++;//秒加1
+  98   3                              }
+  99   2      
+ 100   2                              display(b);//显示秒的值
+ 101   2      
+ 102   2                              if(b == 20)//检查是否到20秒
+ 103   2                              {
+ 104   3                                      TR1 = 0;//时间到关闭定时器1
+ 105   3                                      beep = 0; //使能蜂鸣器
+ 106   3                                      delay(4000);//使能时间4秒
+ 107   3                                      beep = 1;//关闭蜂鸣器
+ 108   3                                      while(1); //停止程序
+ 109   3                              }
+ 110   2      
+ 111   2                              
+ 112   2                      }
+ 113   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    159    ----
+C51 COMPILER V8.08   MAIN                                                                  04/21/2017 23:31:54 PAGE 3   
+
+   CONSTANT SIZE    =     25    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,79 @@
+C51 COMPILER V8.08   LED_DISPLAY                                                           04/21/2017 23:09:58 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE LED_DISPLAY
+OBJECT MODULE PLACED IN led_display.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE led_display.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h> //51头文件
+   2          
+   3          #define uchar unsigned char     //宏定义
+   4          #define uint  unsigned int      //宏定义
+   5          
+   6          sbit we = P2^7; //位定义数码管位选锁存器接口
+   7          sbit du = P2^6; //位定义数码管段选锁存器接口
+   8          
+   9          //数码管段选表
+  10          uchar code leddata[]={ 
+  11           
+  12                          0x3F,  //"0"
+  13                          0x06,  //"1"
+  14                          0x5B,  //"2"
+  15                          0x4F,  //"3"
+  16                          0x66,  //"4"
+  17                          0x6D,  //"5"
+  18                          0x7D,  //"6"
+  19                          0x07,  //"7"
+  20                          0x7F,  //"8"
+  21                          0x6F,  //"9"
+  22                          0x77,  //"A"
+  23                          0x7C,  //"B"
+  24                          0x39,  //"C"
+  25                          0x5E,  //"D"
+  26                          0x79,  //"E"
+  27                          0x71,  //"F"
+  28                          0x76,  //"H"
+  29                          0x38,  //"L"
+  30                          0x37,  //"n"
+  31                          0x3E,  //"u"
+  32                          0x73,  //"P"
+  33                          0x5C,  //"o"
+  34                          0x40,  //"-"
+  35                          0x00,  //熄灭
+  36                          0x00  //自定义
+  37           
+  38                                   };
+  39          
+  40          
+  41          void main()
+  42          {
+  43   1                      du = 1; //打开段选
+  44   1                      P0 = leddata[1]; //显示1
+  45   1                      du = 0; //关闭段选
+  46   1      
+  47   1      
+  48   1                      we = 1;//打开位选
+  49   1                      P0 = 0xfe;//左边第一位数码管显示
+  50   1                      we = 0; //关闭位选
+  51   1      
+  52   1                      
+  53   1                      while(1);//程序停留
+  54   1      }
+
+C51 COMPILER V8.08   LED_DISPLAY                                                           04/21/2017 23:09:58 PAGE 2   
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     20    ----
+   CONSTANT SIZE    =     25    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

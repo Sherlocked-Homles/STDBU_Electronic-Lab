@@ -1,0 +1,53 @@
+C51 COMPILER V9.60.7.0   MIAN                                                              11/02/2024 13:33:12 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MIAN
+OBJECT MODULE PLACED IN mian.OBJ
+COMPILER INVOKED BY: D:\51Microcomputer\Keil C51\C51\BIN\C51.EXE mian.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <REGX52.H>
+*** WARNING C318 IN LINE 1 OF mian.c: can't open file 'REGX52.H'
+   2          void main()
+   3          {
+   4   1              while(1)
+   5   1              {
+   6   2                      P1_0=0;
+*** ERROR C202 IN LINE 6 OF mian.c: 'P1_0': undefined identifier
+   7   2                      P1_2=0;
+*** ERROR C202 IN LINE 7 OF mian.c: 'P1_2': undefined identifier
+   8   2                      P1_3=0;
+*** ERROR C202 IN LINE 8 OF mian.c: 'P1_3': undefined identifier
+   9   2                      P1_4=0;
+*** ERROR C202 IN LINE 9 OF mian.c: 'P1_4': undefined identifier
+  10   2                      P1_5=0;
+*** ERROR C202 IN LINE 10 OF mian.c: 'P1_5': undefined identifier
+  11   2                      P1_6=0;
+*** ERROR C202 IN LINE 11 OF mian.c: 'P1_6': undefined identifier
+  12   2                      P1_7=0;
+*** ERROR C202 IN LINE 12 OF mian.c: 'P1_7': undefined identifier
+  13   2                      if (P1_7==0)
+*** ERROR C202 IN LINE 13 OF mian.c: 'P1_7': undefined identifier
+  14   2                      { 
+  15   3                              P1_6=0;
+*** ERROR C202 IN LINE 15 OF mian.c: 'P1_6': undefined identifier
+  16   3                          P1_5=0;
+*** ERROR C202 IN LINE 16 OF mian.c: 'P1_5': undefined identifier
+  17   3                          P1_4=0;
+*** ERROR C202 IN LINE 17 OF mian.c: 'P1_4': undefined identifier
+  18   3                          P1_3=0;
+*** ERROR C202 IN LINE 18 OF mian.c: 'P1_3': undefined identifier
+  19   3                          P1_2=0;
+*** ERROR C202 IN LINE 19 OF mian.c: 'P1_2': undefined identifier
+  20   3                          P1_1=0;
+*** ERROR C202 IN LINE 20 OF mian.c: 'P1_1': undefined identifier
+  21   3                          P1_0=0;
+*** ERROR C202 IN LINE 21 OF mian.c: 'P1_0': undefined identifier
+  22   3                              
+  23   3                      }
+  24   2                      
+  25   2              }
+  26   1      }
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  15 ERROR(S)

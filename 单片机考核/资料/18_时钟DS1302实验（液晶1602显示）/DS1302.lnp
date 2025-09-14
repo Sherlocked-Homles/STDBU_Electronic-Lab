@@ -1,0 +1,4 @@
+"DS1302.obj",
+"LCD1602.obj" 
+TO "DS1302" 
+RAMSIZE(256) 

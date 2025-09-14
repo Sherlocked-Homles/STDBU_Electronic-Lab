@@ -1,0 +1,109 @@
+C51 COMPILER V8.08   MAIN                                                                  04/24/2017 12:10:06 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          //点阵显示 亲 - 桃心（形状） 
+   2          #include <reg52.h>
+   3          #include <intrins.h>
+   4          
+   5          //点阵模块接口定义
+   6          sbit LEDARRAY_LAT = P3^6;//储存寄存器时钟
+   7          sbit LEDARRAY_CLK = P3^5;//移位寄存器时钟输入端 
+   8          sbit LEDARRAY_DI = P3^4;//串行数据输入端
+   9          
+  10          //二维数组 内含字摸代码，取摸方式和软件都在本目录内
+  11          unsigned char  code Display_word[2][8] = {
+  12          0x00,0x48,0x2A,0x8E,0xFB,0x0E,0x2A,0x48,//亲
+  13          0x0C,0x1E,0x3E,0x7C,0x7C,0x3E,0x1E,0x0C //桃心（形状） 
+  14          };
+  15          
+  16          //SPI通信函数 发送一个直接数据给点阵模块
+  17          void Send_Byte( unsigned char dat)
+  18          {
+  19   1              unsigned char i;//循环次数变量
+  20   1              LEDARRAY_CLK = 0;//拉低移位时钟
+  21   1              _nop_();        
+  22   1              LEDARRAY_LAT = 0;//拉低储存时钟
+  23   1              _nop_();
+  24   1      
+  25   1              for( i = 0 ; i < 8 ; i++ ) //循环8次写入一个字节数据
+  26   1              {
+  27   2                      if( dat&0x01 )
+  28   2                      {
+  29   3                              LEDARRAY_DI = 1;        
+  30   3                      }
+  31   2                      else
+  32   2                      {
+  33   3                              LEDARRAY_DI = 0;
+  34   3                      }
+  35   2                      
+  36   2                      LEDARRAY_CLK = 1;                               //上升沿发送数据
+  37   2                      //                              _nop_();
+  38   2                      LEDARRAY_CLK = 0;
+  39   2                      //                              _nop_();
+  40   2                                      
+  41   2                      dat >>= 1;                      
+  42   2              }               
+  43   1      }
+  44          
+  45          void main()
+  46          {
+  47   1              unsigned char k, temp;
+  48   1              unsigned int i;//i的数值越大显示停留的时间就越久
+  49   1              while(1)
+  50   1              {
+  51   2                              //亲
+  52   2                      for(i = 0 ; i < 1000 ; i++)
+  53   2                      {
+  54   3                              temp = 0x7f;
+  55   3                              for(k = 0 ; k < 8 ; k++)                //一个字母8BYTE
+C51 COMPILER V8.08   MAIN                                                                  04/24/2017 12:10:06 PAGE 2   
+
+  56   3                              {
+  57   4                                      Send_Byte(temp);                        //列选择
+  58   4                                      Send_Byte(Display_word[0][k]);                  //行数据
+  59   4                                      LEDARRAY_LAT = 1;                                       //锁存数据
+  60   4                                      _nop_();
+  61   4                              
+  62   4                                      LEDARRAY_LAT = 0;
+  63   4                                      _nop_();
+  64   4                                      temp = (temp>>1)|0x80;
+  65   4                              }
+  66   3                      }
+  67   2                              //桃心（形状） 
+  68   2                      for(i = 0 ; i < 1000 ; i++)
+  69   2                      {
+  70   3                              temp = 0x7f;
+  71   3                              for(k = 0 ; k < 8 ; k++)                //一个字母4BYTE
+  72   3                              {
+  73   4                                      Send_Byte(temp);                        //列选择
+  74   4                                      Send_Byte(Display_word[1][k]);                  //行数据
+  75   4                                      LEDARRAY_LAT = 1;                                       //锁存数据
+  76   4                                      _nop_();
+  77   4                              
+  78   4                                      LEDARRAY_LAT = 0;
+  79   4                                      _nop_();
+  80   4                                      temp = (temp>>1)|0x80;
+  81   4                              }
+  82   3                      }       
+  83   2              }
+  84   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    132    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

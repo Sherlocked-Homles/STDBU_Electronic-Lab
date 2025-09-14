@@ -1,0 +1,145 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        04/24/2017  12:10:06  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE main.obj TO _88Matrix RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  main.obj (MAIN)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  _88Matrix (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0065H     UNIT         ?PR?MAIN?MAIN
+            CODE    0068H     001FH     UNIT         ?PR?_SEND_BYTE?MAIN
+            CODE    0087H     0010H     UNIT         ?CO?MAIN
+            CODE    0097H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   _88Matrix (MAIN)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN
+  +--> ?PR?_SEND_BYTE?MAIN
+  +--> ?CO?MAIN
+
+
+
+SYMBOL TABLE OF MODULE:  _88Matrix (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  C:0068H         PUBLIC        _Send_Byte
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  B:00B0H.5       PUBLIC        LEDARRAY_CLK
+BL51 BANKED LINKER/LOCATER V6.05                                                      04/24/2017  12:10:06  PAGE 2
+
+
+  D:00B8H         PUBLIC        IP
+  B:00B0H.6       PUBLIC        LEDARRAY_LAT
+  C:0003H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  B:00B0H.4       PUBLIC        LEDARRAY_DI
+  D:00C8H         PUBLIC        T2CON
+  C:0087H         PUBLIC        Display_word
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _SEND_BYTE
+  D:0007H         SYMBOL        dat
+  -------         DO            
+  D:0006H         SYMBOL        i
+  -------         ENDDO         
+  C:0068H         LINE#         17
+  C:0068H         LINE#         18
+  C:0068H         LINE#         20
+  C:006AH         LINE#         21
+  C:006BH         LINE#         22
+  C:006DH         LINE#         23
+  C:006EH         LINE#         25
+  C:0070H         LINE#         26
+  C:0070H         LINE#         27
+  C:0074H         LINE#         28
+  C:0074H         LINE#         29
+  C:0076H         LINE#         30
+  C:0078H         LINE#         32
+  C:0078H         LINE#         33
+  C:007AH         LINE#         34
+  C:007AH         LINE#         36
+  C:007CH         LINE#         38
+  C:007EH         LINE#         41
+  C:0082H         LINE#         42
+  C:0086H         LINE#         43
+  -------         ENDPROC       _SEND_BYTE
+  -------         PROC          MAIN
+  -------         DO            
+  D:0005H         SYMBOL        k
+  D:0004H         SYMBOL        temp
+  D:0002H         SYMBOL        i
+  -------         ENDDO         
+  C:0003H         LINE#         45
+  C:0003H         LINE#         46
+  C:0003H         LINE#         49
+  C:0003H         LINE#         50
+  C:0003H         LINE#         52
+  C:0006H         LINE#         53
+  C:0006H         LINE#         54
+  C:0008H         LINE#         55
+  C:000AH         LINE#         56
+  C:000AH         LINE#         57
+  C:000FH         LINE#         58
+  C:0018H         LINE#         59
+  C:001AH         LINE#         60
+  C:001BH         LINE#         62
+  C:001DH         LINE#         63
+  C:001EH         LINE#         64
+BL51 BANKED LINKER/LOCATER V6.05                                                      04/24/2017  12:10:06  PAGE 3
+
+
+  C:0024H         LINE#         65
+  C:0028H         LINE#         66
+  C:0033H         LINE#         68
+  C:003FH         LINE#         69
+  C:003FH         LINE#         70
+  C:0041H         LINE#         71
+  C:0043H         LINE#         72
+  C:0043H         LINE#         73
+  C:0048H         LINE#         74
+  C:0051H         LINE#         75
+  C:0053H         LINE#         76
+  C:0054H         LINE#         78
+  C:0056H         LINE#         79
+  C:0057H         LINE#         80
+  C:005DH         LINE#         81
+  C:0061H         LINE#         82
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+Program Size: data=9.0 xdata=0 code=163
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

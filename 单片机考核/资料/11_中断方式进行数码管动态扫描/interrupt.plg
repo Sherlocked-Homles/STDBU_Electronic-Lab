@@ -1,0 +1,15 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+G:\MCS51光盘资料\6、经典例程\11_中断方式进行数码管动态扫描\interrupt.uv2
+Project File Date:  06/04/2014
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling interrupt.c...
+linking...
+Program Size: data=14.0 xdata=0 code=375
+creating hex file from "interrupt"...
+"interrupt" - 0 Error(s), 0 Warning(s).

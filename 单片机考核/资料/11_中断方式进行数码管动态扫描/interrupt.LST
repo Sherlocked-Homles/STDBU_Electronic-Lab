@@ -1,0 +1,127 @@
+C51 COMPILER V8.08   INTERRUPT                                                             04/23/2017 13:33:29 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE INTERRUPT
+OBJECT MODULE PLACED IN interrupt.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE interrupt.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*
+   2          定时器0中断方式进行数码管动态显示扫描，
+   3          非软件延时方式去动态扫描，
+   4          按下S2数码管数值加1，按下S3数码管数值减1
+   5          --------------------------------------
+   6          --------------------------------------
+   7          与软件延时方式去做数码管动态扫描的区别：
+   8          软件延时扫描，当按下按键时数码管只会显示1位数
+   9          中断方式扫描，当按下按键时不影响数码管应显示的位数
+  10          */
+  11          #include <reg52.h>
+  12          
+  13          #define uchar unsigned char
+  14          #define uint  unsigned int
+  15          
+  16          sbit we = P2^7; //位定义数码管位选锁存器接口
+  17          sbit du = P2^6;  //位定义数码管位选锁存器接口
+  18          sbit key_s2 = P3^0;//S2按键位定义
+  19          sbit key_s3 = P3^1;//S3按键位定义
+  20          
+  21          uchar i;//数码管显示位选变量
+  22          uchar num[] = {0, 0, 0, 0}; //百十个位，总数暂存数组
+  23          //数码管0~9段选表
+  24          uchar code leddata[]={0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
+  25          //数码管1~3位选表
+  26          uchar code DPY[]={0xfe, 0xfd, 0xfb};
+  27          
+  28          //毫秒级延时函数
+  29          void delay(uint z)
+  30          {
+  31   1              uint x,y;
+  32   1              for(x = z; x > 0; x--)
+  33   1                      for(y = 114; y > 0 ; y--);
+  34   1      }
+  35          //中断服务特殊功能寄存器配置
+  36          void init()
+  37          {
+  38   1              
+  39   1              TMOD = 0x01;  //定时器16为计数工作模式
+  40   1              TH0 =0xED;
+  41   1              TL0 =0xFF; //5ms
+  42   1              ET0 = 1; //开定时器0中断
+  43   1              TR0 = 1;//启动定时器0
+  44   1              EA = 1; //开总中断
+  45   1      }
+  46          
+  47          void main()
+  48          {
+  49   1              init();//初始化定时器0
+  50   1              while(1)
+  51   1              {
+  52   2                      if(key_s2 == 0)//判断S2是否按键
+  53   2                      {
+  54   3                              delay(5);//软件延时
+  55   3                              if(key_s2 == 0)
+C51 COMPILER V8.08   INTERRUPT                                                             04/23/2017 13:33:29 PAGE 2   
+
+  56   3                              {
+  57   4                                      if(num[3] != 255) //当等于255时不再加1
+  58   4                                      num[3]++; //加1
+  59   4                              }
+  60   3                              while(!key_s2); //松手检测
+  61   3                      }
+  62   2                      if(key_s3 == 0)//判断S3是否按键
+  63   2                      {
+  64   3                              delay(5);//软件延时
+  65   3                              if(key_s3 == 0)
+  66   3                              {
+  67   4                                      if(num[3] != 0) //当等于0时，不再减1
+  68   4                                      num[3]--; //减1
+  69   4                              }
+  70   3                              while(!key_s3); //松手检测
+  71   3                      }
+  72   2              }
+  73   1      }
+  74          
+  75          //定时器0中断服务程序  做数码管动态扫描，不用软件延时
+  76          void timer0() interrupt 1
+  77          {
+  78   1              TH0 =0xED;
+  79   1              TL0 =0xFF; //5ms  模式1非自动重装需要手动重装
+  80   1      
+  81   1              if(i < 3)
+  82   1              {
+  83   2                      num[0] = num[3] / 100; //计算百位
+  84   2                      num[1] = num[3] % 100 / 10;     //计算十位
+  85   2                      num[2] = num[3] % 10;//计算个位
+  86   2                      P0 = 0xff; //清除断码
+  87   2                      we = 1;//打开位选
+  88   2                      P0 = DPY[i];
+  89   2                      we = 0; //关闭位选
+  90   2              
+  91   2                      P0 = 0xff; //清除断码
+  92   2                      du = 1; //打开段选
+  93   2                      P0 = leddata[num[i]];
+  94   2                      du = 0; //关闭段选
+  95   2                      i++;//显示下一位
+  96   2              }
+  97   1              else
+  98   1              {
+  99   2                      i = 0;
+ 100   2              }
+ 101   1      
+ 102   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    209    ----
+   CONSTANT SIZE    =     13    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      5    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

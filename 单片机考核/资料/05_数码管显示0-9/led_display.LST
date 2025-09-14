@@ -1,0 +1,91 @@
+C51 COMPILER V8.08   LED_DISPLAY                                                           04/24/2017 12:37:48 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE LED_DISPLAY
+OBJECT MODULE PLACED IN led_display.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE led_display.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>//51头文件
+   2          
+   3          #define uchar unsigned char//宏定义
+   4          #define uint  unsigned int //宏定义
+   5          sbit we = P2^7; //位定义数码管位选锁存器接口
+   6          sbit du = P2^6; //位定义数码管段选锁存器接口
+   7          
+   8          //数码管段选表
+   9          uchar code leddata[]={ 
+  10           
+  11                          0x3F,  //"0"
+  12                          0x06,  //"1"
+  13                          0x5B,  //"2"
+  14                          0x4F,  //"3"
+  15                          0x66,  //"4"
+  16                          0x6D,  //"5"
+  17                          0x7D,  //"6"
+  18                          0x07,  //"7"
+  19                          0x7F,  //"8"
+  20                          0x6F,  //"9"
+  21                          0x77,  //"A"
+  22                          0x7C,  //"B"
+  23                          0x39,  //"C"
+  24                          0x5E,  //"D"
+  25                          0x79,  //"E"
+  26                          0x71,  //"F"
+  27                          0x76,  //"H"
+  28                          0x38,  //"L"
+  29                          0x37,  //"n"
+  30                          0x3E,  //"u"
+  31                          0x73,  //"P"
+  32                          0x5C,  //"o"
+  33                          0x40,  //"-"
+  34                          0x00,  //熄灭
+  35                          0x00  //自定义
+  36           
+  37                                   };
+  38          //毫秒级延时函数
+  39          void delay(uint z)
+  40          {
+  41   1              uint x,y;
+  42   1              for(x = z; x > 0; x--)
+  43   1                      for(y = 114; y > 0 ; y--);
+  44   1      }
+  45          
+  46          void main()
+  47          {
+  48   1      
+  49   1                      uchar i;
+  50   1                      we = 1;//打开位选
+  51   1                      P0 = 0xfe;//1111 1110 第一位数码管显示，注意数码管的排序，P0.0对应连接的是左边第一位数码管
+  52   1                      we = 0; //关闭位选
+  53   1                                      
+  54   1                      while(1) //大循环
+  55   1                      {
+C51 COMPILER V8.08   LED_DISPLAY                                                           04/24/2017 12:37:48 PAGE 2   
+
+  56   2                              du = 1; //打开段选
+  57   2                              P0 = leddata[i];
+  58   2                              du = 0; //关闭段选
+  59   2                              delay(500);//延时500毫秒
+  60   2                              i++;   //i自加1
+  61   2                              if(i == 10)     //当数值为10时，清零
+  62   2                              {
+  63   3                                      i = 0;
+  64   3                              }       
+  65   2                      }
+  66   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     68    ----
+   CONSTANT SIZE    =     25    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

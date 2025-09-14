@@ -1,0 +1,3 @@
+"main.obj" 
+TO "LCD1602Display" 
+RAMSIZE(256) 

@@ -1,0 +1,95 @@
+C51 COMPILER V8.08   MAIN                                                                  04/21/2017 23:47:26 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg52.h>  //51头文件
+   2          #define uchar unsigned char//宏定义
+   3          #define uint unsigned int  //宏定义
+   4          sbit we = P2^7; //数码管位选
+   5          sbit du = P2^6; //数码管段选
+   6          sbit key_s2 = P3^0;//S2按键位定义
+   7          //数码管段选表
+   8          uchar code leddata[]={ 
+   9           
+  10                          0x3F,  //"0"
+  11                          0x06,  //"1"
+  12                          0x5B,  //"2"
+  13                          0x4F,  //"3"
+  14                          0x66,  //"4"
+  15                          0x6D,  //"5"
+  16                          0x7D,  //"6"
+  17                          0x07,  //"7"
+  18                          0x7F,  //"8"
+  19                          0x6F,  //"9"
+  20                          0x77,  //"A"
+  21                          0x7C,  //"B"
+  22                          0x39,  //"C"
+  23                          0x5E,  //"D"
+  24                          0x79,  //"E"
+  25                          0x71,  //"F"
+  26                          0x76,  //"H"
+  27                          0x38,  //"L"
+  28                          0x37,  //"n"
+  29                          0x3E,  //"u"
+  30                          0x73,  //"P"
+  31                          0x5C,  //"o"
+  32                          0x40,  //"-"
+  33                          0x00,  //熄灭
+  34                          0x00  //自定义
+  35           
+  36                                   };
+  37          //毫秒级延时函数
+  38          void delay(uint z)
+  39          {
+  40   1              uint x,y;
+  41   1              for(x = z; x > 0; x--)
+  42   1                      for(y = 114; y > 0 ; y--);
+  43   1      }
+  44          
+  45          void main()
+  46          {
+  47   1              uchar num;
+  48   1              we = 1;
+  49   1              P0 = 0xfe; //选通第一个数码管 
+  50   1              we = 0;
+  51   1              while(1)
+  52   1              {
+  53   2                      du = 1;
+  54   2                      P0 = leddata[num]; //显示S2按下次数
+  55   2                      du = 0;
+C51 COMPILER V8.08   MAIN                                                                  04/21/2017 23:47:26 PAGE 2   
+
+  56   2                      if(key_s2 == 0)//判断S2是否按键
+  57   2                      {
+  58   3                              delay(5);//软件延时
+  59   3                              if(key_s2 == 0)
+  60   3                              {
+  61   4                                      num++; //计数加1
+  62   4                              }
+  63   3                              while(!key_s2); //松手检测
+  64   3                      }
+  65   2                      if(num == 10) //当数值为超过9时归零
+  66   2                      {
+  67   3                              num = 0;
+  68   3                      }       
+  69   2              }
+  70   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     77    ----
+   CONSTANT SIZE    =     25    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
